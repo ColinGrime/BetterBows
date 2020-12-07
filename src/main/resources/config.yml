@@ -1,0 +1,104 @@
+# -= Better Bows =-
+# Created by Scill
+#
+# Customize the Better Bows!
+bows:
+  freeze:
+    name: '&b&lFreeze Bow'
+    lore:
+      - '&7Freeze your enemies!'
+    time: 3
+  replenish:
+    name: '&a&lReplenishing Bow'
+    lore:
+      - '&7Replenish yourself by stealing'
+      - '&7the strength of your enemies!'
+    # Replenish your health by
+    # taking it from your enemy!
+    health-steal:
+      # 1 = half a heart.
+      max-amount: 3
+      min-amount: 1
+    # Steal potion effects!
+    potion-steal:
+      max-time: 20
+      min-time: 10
+  explosive:
+    name: '&c&lExplosive Bow'
+    lore:
+      - '&7Explode the world around you!'
+  block:
+    name: '&d&lBlock Bow'
+    lore:
+      - '&7Summon blocks where you fire!'
+    type: dirt
+  teleportation:
+    name: '&e&lTeleportation Bow'
+    lore:
+      - '&7Fire & teleport!'
+  rider:
+    name: '&e&lRider Bow'
+    lore:
+      - '&7Fire & ride!'
+  rapid-fire:
+    name: '&c&lRapid Fire Bow'
+    lore:
+      - '&7BRRRRRRRRRRR!!'
+  debuff:
+    name: '&c&lDebuff Bow'
+    lore:
+      - '&7Splash a debuff pot!'
+  raining-death:
+    name: '&c&lRaining Death Bow'
+    lore:
+      - '&7Pure death...'
+  blockage:
+    name: '&d&lBlockage Bow'
+    lore:
+      - '&7Protects yourself from enemies!'
+  burst:
+    name: '&a&lBurst Bow'
+    lore:
+      - 'Burst out a bunch of arrows!'
+  triplet:
+    name: '&b&lTriplet Bow'
+    lore:
+      - '&7Fire multiple arrows at once!'
+    arrows: 3
+  ricochet:
+    name: '&b&lRicochet Bow'
+    lore:
+      - '&7Like a slime!'
+  summoner:
+    name: '&a&lSummoner Bow'
+    lore:
+      - '&7Summon assistance...'
+  zeus:
+    name: '&e&lZeus Bow'
+    lore:
+      - '&7LIGHTNING STRIKE!'
+  sniper:
+    name: '&c&lSniper Bow'
+    lore:
+      - '&7Straight, lots of damage.'
+  cannoneer:
+    name: '&cCannoneer Bow'
+    lore:
+      - '&7T-N-T'
+
+admin:
+  # The BetterBows help message.
+  command-help:
+    - '&2/bows list'
+    - '&2/bows give [player] [bow-type]'
+    - '&2/bows reload'
+  # Called when the plugin is reloaded.
+  reload: '&aBetterBows has been reloaded!'
+
+errors:
+  # Called when there is no valid player for the /bows give command.
+  no-valid-player: '&cThere is no online player named %player%!'
+  # Called when there is no valid bow for the /bows give command.
+  no-valid-bow: '&cThere is no custom bow called %bow%!'
+  # Called if a player attempts to reload the plugin without permission.
+  insufficient-permissions: '&cYou do not have permission to this command.'

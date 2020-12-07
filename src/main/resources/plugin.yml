@@ -1,0 +1,19 @@
+name: ${project.name}
+main: ${main.class}
+version: ${project.version}
+author: Scill
+commands:
+   bows:
+      description: Main command for the BetterBows plugin.
+      usage: /<command>
+      aliases: [betterbows, betterbow, bow]
+permissions:
+   betterbows.list:
+      description: List all of the Better Bows.
+      default: op
+   betterbows.give:
+      description: Give a player a Better Bow!
+      default: op
+   betterbows.reload:
+      description: Reloads the BetterBows plugin.
+      default: op
