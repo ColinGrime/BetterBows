@@ -17,6 +17,7 @@
 * Zeus - strike lightning.
 * Sniper - if you are fully loaded, you will never miss.
 * Cannoneer - spawn a bunch of TNT.
+* Healer - never die!
 
 Commands:
 * /bows list

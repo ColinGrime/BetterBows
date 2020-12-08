@@ -70,6 +70,9 @@ public class ConfigData {
 	// Cannoneer bow!
 	private final ItemStack cannoneerBow;
 
+	// Healer bow!
+	private final ItemStack healerBow;
+
 	// Extra...
 	private final List<String> commandHelp;
 	private final String reloadMessage, noPermsError, noValidPlayerError, noValidBowError;
@@ -135,6 +138,9 @@ public class ConfigData {
 
 		// Cannoneer bow!
 		cannoneerBow = getBow(config, "cannoneer");
+
+		// Healer bow!
+		healerBow = getBow(config, "healer");
 
 		// Extra...
 		commandHelp = CommonUtil.color(config.getStringList("admin.command-help"));

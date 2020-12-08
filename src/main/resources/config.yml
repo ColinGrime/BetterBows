@@ -59,7 +59,7 @@ bows:
   burst:
     name: '&a&lBurst Bow'
     lore:
-      - 'Burst out a bunch of arrows!'
+      - '&7Burst out a bunch of arrows!'
   triplet:
     name: '&b&lTriplet Bow'
     lore:
@@ -82,9 +82,13 @@ bows:
     lore:
       - '&7Straight, lots of damage.'
   cannoneer:
-    name: '&cCannoneer Bow'
+    name: '&c&lCannoneer Bow'
     lore:
       - '&7T-N-T'
+  healer:
+    name: '&c&lHealer Bow'
+    lore:
+      - '&7A second chance!'
 
 admin:
   # The BetterBows help message.
