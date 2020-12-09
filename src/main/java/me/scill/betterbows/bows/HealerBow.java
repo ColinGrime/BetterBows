@@ -61,9 +61,9 @@ public class HealerBow extends CustomBow {
 	 * @return all blocks between two locations
 	 */
 	private List<Location> getBlocksBetween(final Location location1, final Location location2){
-		int lowX = Math.min(location1.getBlockX(), location2.getBlockX());
-		int lowY = Math.min(location1.getBlockY(), location2.getBlockY());
-		int lowZ = Math.min(location1.getBlockZ(), location2.getBlockZ());
+		double lowX = Math.min(location1.getX(), location2.getX());
+		double lowY = Math.min(location1.getY(), location2.getY());
+		double lowZ = Math.min(location1.getZ(), location2.getZ());
 
 		final List<Location> locations = new ArrayList<>();
 		for (int blockX = 0; blockX < Math.abs(location1.getBlockX() - location2.getBlockX()); blockX++){
