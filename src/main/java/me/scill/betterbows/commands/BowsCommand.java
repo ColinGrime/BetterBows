@@ -44,6 +44,18 @@ public class BowsCommand implements CommandExecutor {
 					sender.sendMessage(plugin.getConfigData().getNoValidPlayerError().replace("%player%", args[1]));
 
 				else {
+					// Give the player a random amount of bows.
+					if (args[2].equalsIgnoreCase("random")) {
+						final int amountOfBows = args.length >= 4 ? Integer.parseInt(args[3]) : 1;
+
+						// Give the player a bunch of random bows.
+						for (int i=0; i<amountOfBows; i++)
+							Bukkit.getPlayer(args[1]).getInventory().addItem
+									(plugin.getCustomBows().get(CommonUtil.random(plugin.getCustomBows().size())).getBow());
+
+						return true;
+					}
+
 					// Give the player a custom bow.
 					for (CustomBow bow : plugin.getCustomBows()) {
 						if (bow.getID().equalsIgnoreCase(args[2])) {
