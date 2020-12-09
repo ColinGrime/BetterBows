@@ -89,6 +89,10 @@ bows:
     name: '&c&lHealer Bow'
     lore:
       - '&7A second chance!'
+  randomizer:
+    name: '&c&lRandomizer Bow'
+    lore:
+      - '&7What mysterious power is in this bow?!'
 
 admin:
   # The BetterBows help message.

@@ -73,6 +73,9 @@ public class ConfigData {
 	// Healer bow!
 	private final ItemStack healerBow;
 
+	// Randomizer bow!
+	private final ItemStack randomizerBow;
+
 	// Extra...
 	private final List<String> commandHelp;
 	private final String reloadMessage, noPermsError, noValidPlayerError, noValidBowError;
@@ -141,6 +144,9 @@ public class ConfigData {
 
 		// Healer bow!
 		healerBow = getBow(config, "healer");
+
+		// Randomizer bow!
+		randomizerBow = getBow(config, "randomizer");
 
 		// Extra...
 		commandHelp = CommonUtil.color(config.getStringList("admin.command-help"));
