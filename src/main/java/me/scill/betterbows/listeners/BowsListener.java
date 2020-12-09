@@ -91,14 +91,18 @@ public class BowsListener implements Listener {
 	@EventHandler
 	public void onArrowHit(final ProjectileHitEvent event) {
 		// Activate the bow's ability if the arrow was shot from a custom bow.
-		if (event.getEntity() instanceof Arrow && firedArrows.containsKey(event.getEntity()))
+		if (event.getEntity() instanceof Arrow && firedArrows.containsKey(event.getEntity())) {
 			firedArrows.get(event.getEntity()).activateAbility(event);
+			firedArrows.remove(event.getEntity());
+		}
 	}
 
 	@EventHandler
 	public void onPlayerArrowHit(final EntityDamageByEntityEvent event) {
 		// Activate the bow's ability if the arrow was shot from a custom bow.
-		if (event.getDamager() instanceof Arrow && firedArrows.containsKey(event.getDamager()))
+		if (event.getDamager() instanceof Arrow && firedArrows.containsKey(event.getDamager())) {
 			firedArrows.get(event.getDamager()).activateAbility(event);
+			firedArrows.remove(event.getDamager());
+		}
 	}
 }
