@@ -3,28 +3,49 @@ package me.scill.betterbows.bows;
 import me.scill.betterbows.BetterBows;
 import me.scill.betterbows.CustomBow;
 import me.scill.betterbows.utilities.CommonUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Entity;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.util.Vector;
 
-public class RicochetBow extends CustomBow {
+import java.util.HashMap;
+import java.util.Map;
+
+public class RicochetBow extends CustomBow implements Listener {
+
+	private final Map<Entity, Integer> ricochetArrows = new HashMap<>();
 
 	public RicochetBow(final BetterBows plugin) {
-		super("ricochet", plugin.getConfigData().getRicochetBow());
+		super(plugin, "ricochet");
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 
 	@Override
 	public void activateAbility(final ProjectileHitEvent event) {
-		final Location location = event.getEntity().getLocation();
+		Entity arrow = event.getEntity();
+		arrow.remove();
 
-		// Spawns a single arrow in a random direction from the arrow hit.
-		final Arrow arrow = location.getWorld().spawnArrow(location, new Vector(0, 1, 0), 0, 20);
-		arrow.setVelocity(location.getDirection().multiply(CommonUtil.random(1.0,-1.0))
-				.add(new Vector(
-						CommonUtil.random(0.1, -0.1),
-						CommonUtil.random(1.0, 0.5),
-						CommonUtil.random(0.1, -0.1))));
-		event.getEntity().remove();
+		final Location location = arrow.getLocation();
+		final int ricochets = ricochetArrows.containsKey(arrow) ? ricochetArrows.get(arrow) + 1 : 1;
+
+		arrow.setVelocity(location.getDirection()
+				.multiply(CommonUtil.random(0.7,0.6))
+				.add(new Vector(0, 0.1, 0)));
+		arrow = location.getWorld().spawnArrow(location, arrow.getVelocity(), (float) arrow.getVelocity().length(),0);
+
+		if (ricochets > 5)
+			ricochetArrows.remove(arrow);
+		else
+			ricochetArrows.put(arrow, ricochets);
+	}
+
+	@EventHandler
+	public void onRicochetArrowHit(final ProjectileHitEvent event) {
+		if (ricochetArrows.containsKey(event.getEntity()))
+			activateAbility(event);
 	}
 }
