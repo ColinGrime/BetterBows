@@ -2,6 +2,7 @@ package me.scill.betterbows.bows;
 
 import me.scill.betterbows.BetterBows;
 import me.scill.betterbows.CustomBow;
+import me.scill.betterbows.data.ConfigData;
 import me.scill.betterbows.utilities.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,10 +14,13 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class RainingDeathBow extends CustomBow {
+public class HarmingBow extends CustomBow {
 
-	public RainingDeathBow(final BetterBows plugin) {
-		super("raining-death", plugin.getConfigData().getRainingDeathBow());
+	private final ConfigData configData;
+
+	public HarmingBow(final BetterBows plugin) {
+		super(plugin, "harming");
+		this.configData = plugin.getConfigData();
 	}
 
 	@Override
@@ -28,7 +32,7 @@ public class RainingDeathBow extends CustomBow {
 		item.setItemMeta(potionMeta);
 
 		// Spawns in multiple splash potions, and then sets them to the harming splash potion above.
-		for (int i=0; i<10; i++) {
+		for (int i=0; i<configData.getHarmingDebuffPots(); i++) {
 			final Location randomLocation = event.getEntity().getLocation().clone().add
 					(CommonUtil.random(5, -5), CommonUtil.random(10, 5), CommonUtil.random(5, -5));
 			final ThrownPotion thrownPotion = (ThrownPotion) event.getEntity().getWorld().spawnEntity
