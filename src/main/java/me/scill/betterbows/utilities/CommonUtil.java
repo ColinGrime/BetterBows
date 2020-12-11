@@ -1,11 +1,17 @@
 package me.scill.betterbows.utilities;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.BlockIterator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -41,6 +47,17 @@ public class CommonUtil {
 		for (String message : messages)
 			newList.add(color(message));
 		return newList;
+	}
+
+	/**
+	 * If the list of messages contains any
+	 * valid color codes, they will be applied.
+	 *
+	 * @param messages any list of strings
+	 * @return colored version of the list
+	 */
+	public static List<String> color(final String...messages) {
+		return color(Arrays.asList(messages));
 	}
 
 	/**
@@ -93,5 +110,48 @@ public class CommonUtil {
 	 */
 	public static double random(double highNum, double lowNum) {
 		return lowNum + (highNum - lowNum) * random.nextDouble();
+	}
+
+	/**
+	 * Retrieves all locations between two locations.
+	 *
+	 * @param location1 a location
+	 * @param location2 another location
+	 * @return all blocks between two locations
+	 */
+	public static List<Location> getLocationsBetween(final Location location1, final Location location2) {
+		double lowX = Math.min(location1.getX(), location2.getX());
+		double lowY = Math.min(location1.getY(), location2.getY());
+		double lowZ = Math.min(location1.getZ(), location2.getZ());
+
+		final List<Location> locations = new ArrayList<>();
+		for (int blockY = Math.abs(location1.getBlockY() - location2.getBlockY()); blockY >= 0; blockY--) {
+			for (int blockX = 0; blockX < Math.abs(location1.getBlockX() - location2.getBlockX()); blockX++) {
+				for (int blockZ = 0; blockZ < Math.abs(location1.getBlockZ() - location2.getBlockZ()); blockZ++)
+					locations.add(new Location(location1.getWorld(), lowX + blockX, lowY + blockY, lowZ + blockZ));
+			}
+		}
+		return locations;
+	}
+
+	public static Location getAccurateProjectileHit(final Projectile projectile, final boolean isSolidBlock) {
+		final BlockIterator iterator = new BlockIterator
+				(projectile.getWorld(),
+				 projectile.getLocation().toVector(),
+				 projectile.getVelocity().normalize(),
+				 0,
+				 4);
+
+		Block block = projectile.getLocation().getBlock();
+		while (iterator.hasNext()) {
+			final Block nextBlock = iterator.next();
+			if (nextBlock.getType() != Material.AIR) {
+				if (isSolidBlock)
+					block = nextBlock;
+				break;
+			}
+			block = nextBlock;
+		}
+		return block.getLocation();
 	}
 }
