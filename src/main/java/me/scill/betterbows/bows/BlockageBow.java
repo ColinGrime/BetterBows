@@ -1,42 +1,55 @@
 package me.scill.betterbows.bows;
 
 import me.scill.betterbows.BetterBows;
+import me.scill.betterbows.BlockType;
 import me.scill.betterbows.CustomBow;
+import me.scill.betterbows.utilities.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
+import org.bukkit.block.Block;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockageBow extends CustomBow {
 
 	private final BetterBows plugin;
 
 	public BlockageBow(final BetterBows plugin) {
-		super("blockage", plugin.getConfigData().getBlockageBow());
+		super(plugin, "blockage");
 		this.plugin = plugin;
 	}
 
-	@Deprecated
 	@Override
 	public void activateAbility(final ProjectileHitEvent event) {
-		final Location location = event.getEntity().getLocation().clone();
-		for (Entity entity :  location.getWorld().getNearbyEntities(location,50, 50, 50)) {
-			if (entity instanceof Player) {
-				// Create a fake red wall.
-				((Player) entity).sendBlockChange(location, Material.STAINED_GLASS, (byte) 14);
-				((Player) entity).sendBlockChange(location.clone().add(0, 1, 0), Material.STAINED_GLASS, (byte) 14);
-			}
-		}
+		final Location arrowLocation = CommonUtil.getAccurateProjectileHit(event.getEntity(), true);
+		final List<Location> blockageLocations = CommonUtil.getLocationsBetween
+				(arrowLocation.clone().add(2,2,2), arrowLocation.clone().add(-1,0,-1));
 
-		// Show the real blocks again!
+		final List<BlockType> blockageBlocks = new ArrayList<>();
+
+		blockageLocations.stream()
+				.filter(trapLocation -> trapLocation.getBlock().getType() == Material.AIR
+						&& trapLocation.getBlockX() != arrowLocation.getBlockX()
+						&& trapLocation.getBlockZ() != arrowLocation.getBlockZ())
+				.forEach(trapLocation -> {
+					final Block block = trapLocation.getBlock();
+					blockageBlocks.add(new BlockType(block));
+					block.getLocation().getBlock().setType(Material.GLASS);
+				});
+
+		final int[] timer = {0};
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				location.getBlock().getState().update();
-				location.clone().add(0, 1, 0).getBlock().getState().update();
+				if (timer[0]++ == 30) {
+					for (BlockType trapBlock : blockageBlocks)
+						trapBlock.getLocation().getBlock().setType(trapBlock.getMaterial());
+					cancel();
+				}
 			}
-		}.runTaskLater(plugin, 200L);
+		}.runTaskTimer(plugin,0L,5L);
 	}
 }
