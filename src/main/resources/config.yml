@@ -44,14 +44,11 @@ bows:
     name: '&c&lRapid Fire Bow'
     lore:
       - '&7BRRRRRRRRRRR!!'
-  debuff:
-    name: '&c&lDebuff Bow'
+  harming:
+    name: '&c&lHarming Bow'
     lore:
       - '&7Splash a debuff pot!'
-  raining-death:
-    name: '&c&lRaining Death Bow'
-    lore:
-      - '&7Pure death...'
+    debuff-pots: 5
   blockage:
     name: '&d&lBlockage Bow'
     lore:
@@ -93,6 +90,22 @@ bows:
     name: '&c&lRandomizer Bow'
     lore:
       - '&7What mysterious power is in this bow?!'
+  fire:
+    name: '&c&lFire Bow'
+    lore:
+      - '&7Shoot a fireball!'
+  trap:
+    name: '&a&lTrap Bow'
+    lore:
+      - '&7Trap & suffocate your opponents.'
+  combo:
+    name: '&b&lCombo Bow'
+    lore:
+      - '&7The more hits in a row, the more damage.'
+  void:
+    name: '&c&lVoid Bow'
+    lore:
+      - '&7Good bye.'
 
 admin:
   # The BetterBows help message.
