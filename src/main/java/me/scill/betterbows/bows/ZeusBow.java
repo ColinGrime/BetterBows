@@ -7,7 +7,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 public class ZeusBow extends CustomBow {
 
 	public ZeusBow(final BetterBows plugin) {
-		super("zeus", plugin.getConfigData().getZeusBow());
+		super(plugin, "zeus");
 	}
 
 	@Override

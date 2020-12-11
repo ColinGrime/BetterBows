@@ -2,6 +2,7 @@ package me.scill.betterbows.bows;
 
 import me.scill.betterbows.BetterBows;
 import me.scill.betterbows.CustomBow;
+import me.scill.betterbows.utilities.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -9,13 +10,13 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 public class TeleportationBow extends CustomBow {
 
 	public TeleportationBow(final BetterBows plugin) {
-		super("teleportation", plugin.getConfigData().getTeleportationBow());
+		super(plugin, "teleportation");
 	}
 
 	@Override
 	public void activateAbility(final ProjectileHitEvent event) {
 		final Player shooter = (Player) event.getEntity().getShooter();
-		final Location arrowLocation = event.getEntity().getLocation().clone();
+		final Location arrowLocation = CommonUtil.getAccurateProjectileHit(event.getEntity(), false);
 
 		// Keeps your yaw/pitch on teleport.
 		arrowLocation.setYaw(shooter.getLocation().getYaw());

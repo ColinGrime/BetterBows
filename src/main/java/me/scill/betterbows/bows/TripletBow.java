@@ -5,18 +5,19 @@ import me.scill.betterbows.CustomBow;
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.util.Vector;
 
 public class TripletBow extends CustomBow {
 
 	public TripletBow(final BetterBows plugin) {
-		super("triplet", plugin.getConfigData().getTripletBow());
+		super(plugin, "triplet");
 	}
 
 	@Override
 	public void activateAbility(final EntityShootBowEvent event) {
 		// Fires two arrows: left and right.
-		fireArrow(event, 10);
-		fireArrow(event, -10);
+		fireArrow(event, 3);
+		fireArrow(event, -3);
 	}
 
 	/**
@@ -26,8 +27,12 @@ public class TripletBow extends CustomBow {
 	 * @param yaw the new yaw value
 	 */
 	private void fireArrow(final EntityShootBowEvent event, final int yaw) {
-		final Location arrow = event.getEntity().getLocation().clone();
-		arrow.setYaw(arrow.getYaw() + yaw);
-		event.getEntity().launchProjectile(Arrow.class, arrow.getDirection());
+		final Location arrowLocation = event.getEntity().getLocation().clone();
+		arrowLocation.setYaw(arrowLocation.getYaw() + yaw);
+
+		final Vector velocity = arrowLocation.getDirection();
+		final double speed = event.getProjectile().getVelocity().length();
+
+		event.getEntity().launchProjectile(Arrow.class, velocity.multiply(speed));
 	}
 }

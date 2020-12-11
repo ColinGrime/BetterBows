@@ -15,7 +15,7 @@ public class ReplenishBow extends CustomBow {
 	private final ConfigData configData;
 
 	public ReplenishBow(final BetterBows plugin) {
-		super("replenish", plugin.getConfigData().getReplenishBow());
+		super(plugin, "replenish");
 		this.configData = plugin.getConfigData();
 	}
 

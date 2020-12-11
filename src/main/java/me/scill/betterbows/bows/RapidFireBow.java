@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class RapidFireBow extends CustomBow {
 
 	public RapidFireBow(final BetterBows plugin) {
-		super("rapid-fire", plugin.getConfigData().getRapidFireBow());
+		super(plugin, "rapid-fire");
 	}
 
 	@Override

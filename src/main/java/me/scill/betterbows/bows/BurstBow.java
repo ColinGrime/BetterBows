@@ -11,7 +11,7 @@ import org.bukkit.util.Vector;
 public class BurstBow extends CustomBow {
 
 	public BurstBow(final BetterBows plugin) {
-		super("burst", plugin.getConfigData().getBurstBow());
+		super(plugin, "burst");
 	}
 
 	@Override

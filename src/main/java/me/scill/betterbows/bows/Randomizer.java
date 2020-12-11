@@ -14,7 +14,7 @@ public class Randomizer extends CustomBow {
 	private final BetterBows plugin;
 
 	public Randomizer(final BetterBows plugin) {
-		super("randomizer", plugin.getConfigData().getRandomizerBow());
+		super(plugin, "randomizer");
 		this.plugin = plugin;
 	}
 

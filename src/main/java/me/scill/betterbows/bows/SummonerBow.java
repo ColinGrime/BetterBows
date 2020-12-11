@@ -16,7 +16,7 @@ public class SummonerBow extends CustomBow {
 										   		 EntityType.HORSE };
 
 	public SummonerBow(final BetterBows plugin) {
-		super("summoner", plugin.getConfigData().getSummonerBow());
+		super(plugin, "summoner");
 	}
 
 	@Override

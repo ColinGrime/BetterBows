@@ -2,6 +2,7 @@ package me.scill.betterbows.bows;
 
 import me.scill.betterbows.BetterBows;
 import me.scill.betterbows.CustomBow;
+import me.scill.betterbows.utilities.CommonUtil;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -11,7 +12,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HealerBow extends CustomBow {
@@ -19,15 +19,15 @@ public class HealerBow extends CustomBow {
 	private final BetterBows plugin;
 
 	public HealerBow(final BetterBows plugin) {
-		super("healer", plugin.getConfigData().getHealerBow());
+		super(plugin, "healer");
 		this.plugin = plugin;
 	}
 
 	@Override
 	public void activateAbility(final ProjectileHitEvent event) {
 		final Location location = event.getEntity().getLocation();
-		final List<Location> blocks = getBlocksBetween(location.clone().add(2,0,2),
-													   location.clone().add(-2,1,-2));
+		final List<Location> blocks = CommonUtil.getLocationsBetween
+				(location.clone().add(2,0,2), location.clone().add(-1,0,-1));
 
 		final int[] timer = {0};
 		new BukkitRunnable() {
@@ -51,28 +51,5 @@ public class HealerBow extends CustomBow {
 				}
 			}
 		}.runTaskTimer(plugin,0L,5L);
-	}
-
-	/**
-	 * Retrieves all locations between two locations.
-	 *
-	 * @param location1 a location
-	 * @param location2 another location
-	 * @return all blocks between two locations
-	 */
-	private List<Location> getBlocksBetween(final Location location1, final Location location2){
-		double lowX = Math.min(location1.getX(), location2.getX());
-		double lowY = Math.min(location1.getY(), location2.getY());
-		double lowZ = Math.min(location1.getZ(), location2.getZ());
-
-		final List<Location> locations = new ArrayList<>();
-		for (int blockX = 0; blockX < Math.abs(location1.getBlockX() - location2.getBlockX()); blockX++){
-			for (int blockY = 0; blockY < Math.abs(location1.getBlockY() - location2.getBlockY()); blockY++){
-				for (int blockZ = 0; blockZ < Math.abs(location1.getBlockZ() - location2.getBlockZ()); blockZ++){
-					locations.add(new Location(location1.getWorld(),lowX+blockX, lowY+blockY, lowZ+blockZ));
-				}
-			}
-		}
-		return locations;
 	}
 }

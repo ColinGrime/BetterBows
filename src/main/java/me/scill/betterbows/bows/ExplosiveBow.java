@@ -8,7 +8,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 public class ExplosiveBow extends CustomBow {
 
 	public ExplosiveBow(final BetterBows plugin) {
-		super("explosive", plugin.getConfigData().getExplosiveBow());
+		super(plugin, "explosive");
 	}
 
 	@Override

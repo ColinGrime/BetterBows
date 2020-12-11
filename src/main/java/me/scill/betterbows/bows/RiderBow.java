@@ -14,7 +14,7 @@ public class RiderBow extends CustomBow {
 	private final Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
 
 	public RiderBow(final BetterBows plugin) {
-		super("rider", plugin.getConfigData().getRiderBow());
+		super(plugin, "rider");
 	}
 
 	@Override

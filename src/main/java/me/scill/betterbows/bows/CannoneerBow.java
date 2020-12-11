@@ -8,7 +8,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 public class CannoneerBow extends CustomBow {
 
 	public CannoneerBow(final BetterBows plugin) {
-		super("cannoneer", plugin.getConfigData().getCannoneerBow());
+		super(plugin, "cannoneer");
 	}
 
 	@Override

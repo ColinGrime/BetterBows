@@ -13,7 +13,7 @@ public class FreezeBow extends CustomBow {
 	private final ConfigData configData;
 
 	public FreezeBow(final BetterBows plugin) {
-		super("freeze", plugin.getConfigData().getFreezeBow());
+		super(plugin, "freeze");
 		this.configData = plugin.getConfigData();
 	}
 
