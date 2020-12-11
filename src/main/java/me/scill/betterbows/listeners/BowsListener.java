@@ -39,7 +39,7 @@ public class BowsListener implements Listener {
 			public void run() {
 				firedArrows.keySet().removeIf(Entity::isDead);
 
-				if (firedArrows.size() > 500) {
+				if (firedArrows.size() > 100) {
 					final Iterator<Entity> iterator = firedArrows.keySet().iterator();
 					while (iterator.hasNext()) {
 						iterator.next().remove();
@@ -93,16 +93,21 @@ public class BowsListener implements Listener {
 		// Activate the bow's ability if the arrow was shot from a custom bow.
 		if (event.getEntity() instanceof Arrow && firedArrows.containsKey(event.getEntity())) {
 			firedArrows.get(event.getEntity()).activateAbility(event);
-			firedArrows.remove(event.getEntity());
+
+			// Removes it a few ticks later to allow the EntityDamageByEntityEvent to activate.
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					firedArrows.remove(event.getEntity());
+				}
+			}.runTaskLaterAsynchronously(plugin,5L);
 		}
 	}
 
 	@EventHandler
 	public void onPlayerArrowHit(final EntityDamageByEntityEvent event) {
 		// Activate the bow's ability if the arrow was shot from a custom bow.
-		if (event.getDamager() instanceof Arrow && firedArrows.containsKey(event.getDamager())) {
+		if (event.getDamager() instanceof Arrow && firedArrows.containsKey(event.getDamager()))
 			firedArrows.get(event.getDamager()).activateAbility(event);
-			firedArrows.remove(event.getDamager());
-		}
 	}
 }
