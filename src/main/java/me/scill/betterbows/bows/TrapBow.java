@@ -25,7 +25,8 @@ public class TrapBow extends CustomBow {
 
 	@Override
 	public void activateAbility(final EntityDamageByEntityEvent event) {
-		final Location arrowLocation = CommonUtil.getAccurateProjectileHit((Projectile) event.getDamager(), true);
+		event.setCancelled(true);
+		final Location arrowLocation = event.getEntity().getLocation();
 		final List<Location> trapLocations = CommonUtil.getLocationsBetween
 				(arrowLocation.clone().add(2, 2, 2), arrowLocation.clone().add(-1, 0, -1));
 
