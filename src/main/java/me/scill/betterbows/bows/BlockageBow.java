@@ -1,8 +1,8 @@
 package me.scill.betterbows.bows;
 
 import me.scill.betterbows.BetterBows;
-import me.scill.betterbows.BlockType;
 import me.scill.betterbows.CustomBow;
+import me.scill.betterbows.OldBlock;
 import me.scill.betterbows.utilities.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,7 +28,7 @@ public class BlockageBow extends CustomBow {
 		final List<Location> blockageLocations = CommonUtil.getLocationsBetween
 				(arrowLocation.clone().add(2,2,2), arrowLocation.clone().add(-1,0,-1));
 
-		final List<BlockType> blockageBlocks = new ArrayList<>();
+		final List<OldBlock> oldBlocks = new ArrayList<>();
 
 		blockageLocations.stream()
 				.filter(trapLocation -> trapLocation.getBlock().getType() == Material.AIR
@@ -36,8 +36,8 @@ public class BlockageBow extends CustomBow {
 						&& trapLocation.getBlockZ() != arrowLocation.getBlockZ())
 				.forEach(trapLocation -> {
 					final Block block = trapLocation.getBlock();
-					blockageBlocks.add(new BlockType(block));
-					block.getLocation().getBlock().setType(Material.GLASS);
+					oldBlocks.add(new OldBlock(block));
+					block.setType(Material.GLASS);
 				});
 
 		final int[] timer = {0};
@@ -45,8 +45,8 @@ public class BlockageBow extends CustomBow {
 			@Override
 			public void run() {
 				if (timer[0]++ == 30) {
-					for (BlockType trapBlock : blockageBlocks)
-						trapBlock.getLocation().getBlock().setType(trapBlock.getMaterial());
+					for (OldBlock oldBlock : oldBlocks)
+						oldBlock.revert();
 					cancel();
 				}
 			}
